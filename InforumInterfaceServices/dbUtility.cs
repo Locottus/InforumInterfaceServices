@@ -39,6 +39,74 @@ namespace InforumInterfaceServices
         }
 
 
+
+        private string generateToken()
+        {
+            byte[] time = BitConverter.GetBytes(DateTime.UtcNow.ToBinary());
+            byte[] key = Guid.NewGuid().ToByteArray();
+            string token = Convert.ToBase64String(time.Concat(key).ToArray());
+            //MessageBox.Show(token);
+            return token;
+
+        }
+
+
+        /*
+             create table jazzUsrs(
+	        usuario varchar(100) not null,
+	        clave varchar(100) not null,
+	        activo int not null
+	        PRIMARY KEY (usuario)
+        )
+         */
+
+
+        public string inciaSesion(string usr, string pwd, string proyecto)
+        {
+            int ok = 0;
+            //ArrayList list = new ArrayList();
+            string Query = "select tablaUsrs from proyectos (nolock) where id =  " + proyecto ;
+            string tabla = regresa1valor(Query);
+            Query = "select count(*) from " + tabla + " where activo  = 1 and usuario = '" + usr + "' and clave = '" + pwd + "' ";
+            SqlConnection cnn = new SqlConnection(connectionString);
+            cnn.Open();
+            SqlCommand sqlComm = new SqlCommand(Query, cnn);
+            SqlDataReader r = sqlComm.ExecuteReader();
+            try
+            {
+                while (r.Read())
+                {
+                    ok = (Convert.ToInt32(r[0].ToString()));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                r.Close();
+                cnn.Close();
+            }
+
+            if (ok > 0)
+            {
+                string json = "{\"token\":\"" + generateToken().ToString() + "\"}";
+
+                return json;
+            }
+
+
+            //'{ "name":"John", "age":30, "city":"New York"}'
+            //paso inverso List<Product> products = JsonConvert.DeserializeObject<List<Product>>(json);
+            //https://www.newtonsoft.com/json/help/html/SerializingCollections.htm
+            return "{\"token\":\"0\"}"; 
+        }
+
+
+
+
         public static String regresa1valor(String Query)
         {
             String ret = "";
