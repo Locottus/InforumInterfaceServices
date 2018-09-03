@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="js/jquery.js"></script>
+    <script src="js/globals.js"></script>
+    <script src="js/index.js"></script>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/snack.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="jumbotron text-center ">
+        <h1>Simple One</h1>
+        <h2>Quake Inc. S.A.</h2>
+    </div>
+    <div class="container ">
+        <table style="width:100%">
+            <tr>
+                <th>
+                    <div class="row">
+                        <div>
+                            <div class="card card-signin my-5">
+                                <div class="card-body">
+                                    <form class="form-signin">
+                                        <input type="email" id="inputEmail" class="form-control" placeholder="Usuario" required value="" autofocus>
+                                        <label for="inputEmail">Email address/Correo</label>
+
+                                        <input type="password" id="inputPassword" class="form-control" placeholder="Clave" required value="">
+                                        <label for="inputPassword">Password</label>
+
+                                        <div class="form-label-group">
+                                            <select id="proyectosDropDown" class="form-control">
+                                                <option value=""></option>
+                                            </select>
+                                            <label for="inputProyecto">Proyecto</label>
+                                        </div>
+
+                                        <input type="button" value="Ingresar" id="submit" class="btn btn-lg btn-basic btn-block text-uppercase ">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </th>
+
+                <th>
+                    <div class="row">
+                        <div>
+                            <span class="image object">
+                                <img src="images/quake_inc.png" alt="" class="center-block" />
+                            </span>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+        </table>
+
+
+    </div>
+    <div class="text-center text-md-center font-weight-bold">
+        <p></p>
+        <span class="bg-danger" id="warning"></span>
+    </div>
+
+    <div id="snackbar"></div>
+
+</body>
+</html>
