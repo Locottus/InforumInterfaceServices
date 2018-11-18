@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using InforumInterfaceServices.Models;
 
 
@@ -12,6 +13,7 @@ using InforumInterfaceServices.Models;
 
 namespace InforumInterfaceServices.Controllers
 {
+    [EnableCors("*", "*", "*")]
     public class ARTICULOSController : ApiController
     {
 
@@ -23,6 +25,7 @@ namespace InforumInterfaceServices.Controllers
         }
 
         // GET api/<controller>
+        [HttpGet]
         public List<ARTICULOS> Get()
         {
             dbUtility db = new dbUtility();
@@ -30,10 +33,24 @@ namespace InforumInterfaceServices.Controllers
             return null;// new string[] { "value1", "value2", "values3" };
         }
 
-
-        // POST api/<controller>
-        public void Post(ARTICULOS value)
+        [HttpPost]
+        [System.Web.Http.Route("api/ARTICULOS/ObtieneArticulos")]
+        public IHttpActionResult ObtieneArticulos()
         {
+            dbUtility db = new dbUtility();
+            string r = db.obtieneArticulos();
+            if (string.IsNullOrEmpty(r))
+                return NotFound();
+            return Ok(r);
+        }
+        // POST api/<controller>
+        [HttpPost]
+        public IHttpActionResult Post(ARTICULOS value)
+        {
+            string r = null;
+            if (string.IsNullOrEmpty(r))
+                return NotFound();
+            return Ok(r);
         }
 
         // PUT api/<controller>/5
